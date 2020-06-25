@@ -1,0 +1,35 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.3.0
+
+jobs:
+  build:
+    parameters:
+      tag:
+        type: string
+
+    executor:
+      name: python/default
+      tag: << parameters.tag >>
+
+    steps:
+      - checkout
+      - python/install-deps
+      - run: python main.py
+      - run: flake8 --statistics *.py
+      - run: coverage run --source=main -m unittest -vb test.py
+      - run: coverage report -m
+      - run: zip pack.zip *.py
+
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          tag: '3.6'
+      - build:
+          tag: '3.7'
+      - build:
+          tag: '3.8'
