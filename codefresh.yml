@@ -9,6 +9,11 @@ steps:
     type: build
     image_name: alci
     working_directory: ./alci
+    matrix:
+      build_arguments:
+        - [ version=3.6 ]
+        - [ version=3.7 ]
+        - [ version=3.8 ]
 
   deploy:
     type: freestyle
