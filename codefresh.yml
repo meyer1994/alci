@@ -7,6 +7,7 @@ steps:
 
   build:
     type: build
+    image_name: alci
     working_directory: ./alci
 
   deploy:
