@@ -17,6 +17,7 @@ blocks:
               values: [ '3.6', '3.7', '3.8' ]
           commands:
             - sem-version python $PY
-            - cd fastapi
-            - pip install flit
-            - flit install --symlink
+            - cd requests
+            - make
+            - make test-readme
+            - make ci
