@@ -9,7 +9,7 @@ blocks:
     task:
       prologue:
         commands:
-          - checkout
+          - make clone
 
       jobs:
         - matrix:
@@ -17,7 +17,5 @@ blocks:
               values: [ '3.6', '3.7', '3.8' ]
           commands:
             - sem-version python $PY
-            - cd requests
-            - make
-            - make test-readme
+            - make install
             - make ci
