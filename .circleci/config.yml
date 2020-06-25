@@ -1,20 +1,18 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.3.0
-
 jobs:
   build:
     parameters:
-      tag:
+      image:
         type: string
 
-    executor:
-      name: python/default
-      tag: << parameters.tag >>
+    docker:
+      - image: << parameters.image >>
 
     steps:
       - checkout
+      - run: apk add git
+      - run: apk add make
       - run: make clone
       - run: make install
       - run: make test
@@ -25,8 +23,8 @@ workflows:
   build:
     jobs:
       - build:
-          tag: '3.6'
+          image: 'python:3.6-alpine'
       - build:
-          tag: '3.7'
+          image: 'python:3.7-alpine'
       - build:
-          tag: '3.8'
+          image: 'python:3.8-alpine'
