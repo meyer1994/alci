@@ -8,6 +8,7 @@ steps:
   install:
     type: freestyle
     image: python:3.8-alpine
+    working_directory: ./alci
     commands:
       - ls
       - pip install -r requirements.txt
@@ -15,6 +16,7 @@ steps:
   script:
     type: freestyle
     image: python:3.8-alpine
+    working_directory: ./alci
     commands:
       - python main.py
       - flake8 --statistics *.py
@@ -23,12 +25,13 @@ steps:
   report:
     type: freestyle
     image: python:3.8-alpine
+    working_directory: ./alci
     commands:
       - coverage report -m
 
   deploy:
     type: freestyle
-    image: python:3.8-alpine
+    image: alpine
     commands:
       - apk add zip
       - zip pack.zip *.py
