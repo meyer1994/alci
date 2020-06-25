@@ -6,14 +6,19 @@ steps:
     repo: 'meyer1994/alci'
 
   build:
-    type: build
-    image_name: alci
+    type: freestyle
     working_directory: ./alci
+    commands:
+      - pip install -r requirements.txt
+      - python main.py
+      - flake8 --statistics *.py
+      - coverage run --source=main -m unittest -vb test.py
+      - coverage report -m
     matrix:
-      build_arguments:
-        - [ version=3.6 ]
-        - [ version=3.7 ]
-        - [ version=3.8 ]
+      image:
+        - python:3.6-alpine
+        - python:3.7-alpine
+        - python:3.8-alpine
 
   deploy:
     type: freestyle
