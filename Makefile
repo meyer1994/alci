@@ -9,6 +9,3 @@ install:
 test:
 	cd requests && $(MAKE) test-readme
 	cd requests && $(MAKE) ci
-
-coverage:
-	cd requests && $(MAKE) coverage
