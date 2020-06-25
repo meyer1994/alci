@@ -5,33 +5,14 @@ steps:
     type: git-clone
     repo: 'meyer1994/alci'
 
-  install:
-    type: freestyle
-    image: python:3.8-alpine
+  build:
+    type: build
     working_directory: ./alci
-    commands:
-      - ls
-      - pip install -r requirements.txt
-
-  script:
-    type: freestyle
-    image: python:3.8-alpine
-    working_directory: ./alci
-    commands:
-      - python main.py
-      - flake8 --statistics *.py
-      - coverage run --source=main -m unittest -vb test.py
-
-  report:
-    type: freestyle
-    image: python:3.8-alpine
-    working_directory: ./alci
-    commands:
-      - coverage report -m
 
   deploy:
     type: freestyle
     image: alpine
+    working_directory: ./alci
     commands:
       - apk add zip
       - zip pack.zip *.py
