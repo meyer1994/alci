@@ -10,6 +10,7 @@ steps:
     working_directory: ./alci
     commands:
       - apk add git
+      - apk add make
       - make clone
       - make install
       - make test
