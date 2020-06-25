@@ -4,7 +4,6 @@ steps:
   clone:
     type: git-clone
     repo: 'meyer1994/alci'
-    git: github
 
   install:
     type: freestyle
