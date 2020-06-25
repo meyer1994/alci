@@ -12,11 +12,11 @@ blocks:
           - checkout
 
       jobs:
-        -
-          commands:
-            - sem-version python $PY
-            - coverage run --source=main -m unittest -vb tests
-            - coverage report -m
-          matrix:
+        - matrix:
             - env_var: PY
               values: [ '3.6', '3.7', '3.8' ]
+          commands:
+            - sem-version python $PY
+            - cd fastapi
+            - pip install flit
+            - flit install --symlink
