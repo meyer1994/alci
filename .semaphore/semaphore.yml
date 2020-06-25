@@ -1,64 +1,17 @@
 version: v1.0
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
 
 blocks:
   - name: 'Build 3.8'
+    agent:
+      containers:
+        - name: main
+          image: python:3.8-alpine
+
     task:
-      agent:
-        machine:
-          os_image: python:3.8-alpine
-
-      prologue:
-        - checkout
-        - pip install -r requirements.txt
-
-      jobs:
-        - name: Test
-          commands:
-            - python main.py
-            - coverage run --source=main -m unittest -vb test.py
-            - coverage report -m
-
-        - name: Lint
-          commands:
-            - flake8 --statistics *.py
-
-        - name: Deploy
-          commands:
-            - apk add zip
-            - zip pack.zip *.py
-
-  - name: 'Build 3.7'
-    task:
-      agent:
-        machine:
-          os_image: python:3.7-alpine
-
-      prologue:
-        - checkout
-        - pip install -r requirements.txt
-
-      jobs:
-        - name: Test
-          commands:
-            - python main.py
-            - coverage run --source=main -m unittest -vb test.py
-            - coverage report -m
-
-        - name: Lint
-          commands:
-            - flake8 --statistics *.py
-
-        - name: Deploy
-          commands:
-            - apk add zip
-            - zip pack.zip *.py
-
-  - name: 'Build 3.6'
-    task:
-      agent:
-        machine:
-          os_image: python:3.6-alpine
-
       prologue:
         - checkout
         - pip install -r requirements.txt
