@@ -6,12 +6,12 @@ agent:
 
 blocks:
   - name: 'Build 3.8'
-    agent:
-      containers:
-        - name: main
-          image: python:3.8-alpine
-
     task:
+      agent:
+        containers:
+          - name: main
+            image: python:3.8-alpine
+
       prologue:
         commands:
           - checkout
