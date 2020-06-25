@@ -5,34 +5,23 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: 'Build 3.8'
+  - name: Build
     task:
-      agent:
-        machine:
-          type: e1-standard-2
-          os_image: ubuntu1804
-        containers:
-          - name: main
-            image: python:3.8-alpine
-            command: sh
-
       prologue:
         commands:
           - checkout
-          - pip install -r requirements.txt
 
       jobs:
-        - name: Test
-          commands:
+        matrix:
+          - env_var: PY
+            values: [ '3.6', '3.7', '3.8' ]
+
+        - commands:
+            - sem-version python $PY
+            - pip install -r requirements.txt
             - python main.py
+            - flake8 --statistics *.py
             - coverage run --source=main -m unittest -vb test.py
             - coverage report -m
-
-        - name: Lint
-          commands:
-            - flake8 --statistics *.py
-
-        - name: Deploy
-          commands:
             - apk add zip
             - zip pack.zip *.py
