@@ -8,17 +8,8 @@ python:
   - '3.8'
 
 install:
-  - pip install -r requirements.txt
+  - make clone
+  - make install
 
 script:
-  - python main.py
-  - flake8 --statistics *.py
-  - coverage run --source=main -m unittest -vb test.py
-
-after_success:
-  - coverage report -m
-
-deploy:
-  - provider: script
-    script: zip pack.zip *.py
-    edge: true
+  - make test
