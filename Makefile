@@ -6,9 +6,9 @@ clone:
 install:
 	cd requests && $(MAKE) init
 
-ci:
-	cd requests && $(MAKE) docs
+test:
 	cd requests && $(MAKE) test-readme
-	cd requests && $(MAKE) test
 	cd requests && $(MAKE) ci
+
+coverage:
 	cd requests && $(MAKE) coverage
