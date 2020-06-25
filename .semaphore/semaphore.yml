@@ -8,6 +8,9 @@ blocks:
   - name: 'Build 3.8'
     task:
       agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
         containers:
           - name: main
             image: python:3.8-alpine
