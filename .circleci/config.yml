@@ -15,9 +15,9 @@ jobs:
 
     steps:
       - checkout
-      - make clone
-      - make install
-      - make test
+      - run: make clone
+      - run: make install
+      - run: make test
 
 
 workflows:
