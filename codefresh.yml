@@ -9,6 +9,7 @@ steps:
     type: freestyle
     image: python:3.8-alpine
     commands:
+      - ls
       - pip install -r requirements.txt
 
   script:
