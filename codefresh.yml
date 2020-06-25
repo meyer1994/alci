@@ -1,0 +1,34 @@
+version: '1.0'
+
+steps:
+  clone:
+    type: git-clone
+    repo: 'meyer1994/alci'
+    git: github
+
+  install:
+    type: freestyle
+    image: python:3.8-alpine
+    commands:
+      - pip install -r requirements.txt
+
+  script:
+    type: freestyle
+    image: python:3.8-alpine
+    commands:
+      - python main.py
+      - flake8 --statistics *.py
+      - coverage run --source=main -m unittest -vb test.py
+
+  report:
+    type: freestyle
+    image: python:3.8-alpine
+    commands:
+      - coverage report -m
+
+  deploy:
+    type: freestyle
+    image: python:3.8-alpine
+    commands:
+      - apk add zip
+      - zip pack.zip *.py
