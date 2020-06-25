@@ -13,8 +13,9 @@ blocks:
 
     task:
       prologue:
-        - checkout
-        - pip install -r requirements.txt
+        commands:
+          - checkout
+          - pip install -r requirements.txt
 
       jobs:
         - name: Test
