@@ -1,11 +1,11 @@
-.PHONY: install ci clone
+.PHONY: install test deploy
 
-clone:
-	git clone https://github.com/psf/requests.git
 
 install:
-	cd requests && $(MAKE) init
+	pip install httpx==0.13.*
 
 test:
-	cd requests && $(MAKE) test-readme
-	cd requests && $(MAKE) ci
+	python -c 'import httpx; print(httpx.get("https://example.org"))'
+
+deploy:
+	curl -v -X POST example.org -H "Content-Type: application/json" -d '{}'
