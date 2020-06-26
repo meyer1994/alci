@@ -11,11 +11,11 @@ jobs:
 
     steps:
       - checkout
-      - run: apk add git
       - run: apk add make
-      - run: make clone
       - run: make install
       - run: make test
+      - run: apk add curl
+      - run: make deploy
 
 
 workflows:
