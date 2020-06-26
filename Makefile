@@ -2,10 +2,10 @@
 
 
 install:
-	pip install httpx==0.13.*
+	pip install requests
 
 test:
-	python -c 'import httpx; print(httpx.get("https://example.org"))'
+	python -c 'import requests; print(requests.get("https://example.org"))'
 
 deploy:
 	curl -v -X POST example.org -H "Content-Type: application/json" -d '{}'
