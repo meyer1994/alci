@@ -7,8 +7,8 @@ build_task:
       - image: python:3.8-alpine
 
   build_script:
-    - apk add git
     - apk add make
-    - make clone
     - make install
     - make test
+    - apk add curl
+    - make deploy
