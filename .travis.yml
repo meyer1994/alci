@@ -3,17 +3,11 @@ dist: bionic
 
 language: python
 python:
-  - '3.6'
-  - '3.7'
   - '3.8'
+  - '3.9'
 
 install:
-  - make install
+  - pip install -r requirements.txt
 
 script:
-  - make test
-
-deploy:
-  - provider: script
-    script: make deploy
-    edge: true
+  - python -m unittest discover -vb tests/

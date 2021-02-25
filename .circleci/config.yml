@@ -1,4 +1,5 @@
-version: 2.1
+version: '2.1'
+
 
 jobs:
   build:
@@ -11,20 +12,14 @@ jobs:
 
     steps:
       - checkout
-      - run: apk add make
-      - run: make install
-      - run: make test
-      - run: apk add curl
-      - run: make deploy
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -vb tests/
 
 
 workflows:
-  version: 2
   build:
     jobs:
       - build:
-          image: 'python:3.6-alpine'
+          image: 'cimg:3.9'
       - build:
-          image: 'python:3.7-alpine'
-      - build:
-          image: 'python:3.8-alpine'
+          image: 'cimg:3.8'
