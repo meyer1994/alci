@@ -1,21 +1,18 @@
 version: '1.0'
 
 steps:
-  clone:
+  main_clone:
     type: git-clone
-    repo: 'meyer1994/alci'
+    repo: '${{ CF_REPO_OWNER }}/${{ CF_REPO_NAME }}'
+    revision: '${{ CF_REVISION }}'
+    git: github
 
   build:
     type: freestyle
-    working_directory: ./alci
     commands:
-      - apk add make
-      - make install
-      - make test
-      - apk add curl
-      - make deploy
+      - pip install -r requirements.txt
+      - python -m unittest discover -vb tests/
     matrix:
       image:
-        - python:3.6-alpine
-        - python:3.7-alpine
-        - python:3.8-alpine
+        - python:3.8-slim
+        - python:3.9-slim
