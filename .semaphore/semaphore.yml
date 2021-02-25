@@ -1,19 +1,20 @@
 version: v1.0
+
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 
 blocks:
-  - name: Build
-    task:
+  - task:
       jobs:
-        - matrix:
-            - env_var: PY
-              values: [ '3.6', '3.7', '3.8' ]
-          commands:
-            - sem-version python $PY
+        - commands:
+            - sem-version python $PYTHON_VERSION
             - checkout
-            - make install
-            - make test
-            - make deploy
+            - pip install -r requirements.txt
+            - python -m unittest discover -vb tests/
+          matrix:
+            - env_var: PYTHON_VERSION
+              values:
+                - '3.8'
+                - '3.9'
